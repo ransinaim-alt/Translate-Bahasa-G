@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penerjemah Bahasa G</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            resize: vertical;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .output-box {
+            background-color: #f8f9fa;
+            border: 2px dashed #bbb;
+            padding: 15px;
+            border-radius: 8px;
+            min-height: 80px;
+            font-size: 18px;
+            color: #2b2b2b;
+            word-wrap: break-word;
+        }
+
+        .footer {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Penerjemah Bahasa G 💬</h1>
+
+        <div class="input-group">
+            <label for="inputText">Teks Asli (Indonesia):</label>
+            <textarea id="inputText" placeholder="Ketik kalimat di sini..." oninput="translateToG()"></textarea>
+        </div>
+
+        <div class="input-group">
+            <label>Hasil Bahasa G:</label>
+            <div id="outputText" class="output-box">Hasil terjemahan akan muncul di sini...</div>
+        </div>
+
+        <div class="footer">
+            Aturan: Setiap vokal (a, i, u, e, o) ditambahi <b>g</b> + vokal tersebut.
+        </div>
+    </div>
+
+    <script>
+        function translateToG() {
+            const input = document.getElementById('inputText').value;
+            const outputElement = document.getElementById('outputText');
+
+            if (input.trim() === "") {
+                outputElement.textContent = "Hasil terjemahan akan muncul di sini...";
+                outputElement.style.color = "#777";
+                return;
+            }
+
+            outputElement.style.color = "#2b2b2b";
+
+            // Logika konversi Bahasa G menggunakan Regex
+            // Mencari huruf vokal (besar/kecil) dan menambahkan g + vokal yang sesuai
+            const result = input.replace(/([aeiouaeiou])/gi, function(match) {
+                // Menjaga huruf besar/kecil (capitalization)
+                const isUpperCase = match === match.toUpperCase();
+                const gChar = isUpperCase ? 'G' : 'g';
+                return match + gChar + match.toLowerCase();
+            });
+
+            outputElement.textContent = result;
+        }
+    </script>
+
+</body>
+</html>
